@@ -1,11 +1,17 @@
 package com.myshoppingcart.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myshoppingcart.dao.CategoryDAO;
+
 @Controller
 public class HomeController {
+	
+	@Autowired
+	CategoryDAO categoryDAO;
 
 	@RequestMapping(value= {"/", "/home"})
 	public ModelAndView showHomePage() {
@@ -13,6 +19,9 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView("masterPage");
 		mav.addObject("title", "Home");
 		mav.addObject("homeTrue", true);
+		
+		//ADDING THE CATEGORY LIST TO THE MAV
+		mav.addObject("categories", categoryDAO.getCatogoryList());
 		return mav;
 	}
 	
