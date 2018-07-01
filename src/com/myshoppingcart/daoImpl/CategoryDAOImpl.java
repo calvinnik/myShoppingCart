@@ -50,8 +50,17 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	@Override
 	public List<Category> getCatogoryList() {
-		System.out.println(catList);
 		return catList;
+	}
+
+	@Override
+	public Category getCatogory(int id) {
+		for(Category c:catList) {
+			if(c.getId()==id) {
+				return c;
+			}
+		}
+		return null;
 	}
 
 }

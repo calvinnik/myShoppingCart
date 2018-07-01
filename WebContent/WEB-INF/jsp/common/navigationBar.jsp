@@ -17,18 +17,14 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item" id="home">
-					<a class="nav-link" href="${contextRoot}/home">Home</a>
-				</li>
-				<li class="nav-item" id="about">
-					<a class="nav-link" href="${contextRoot}/aboutUs">About Us</a>
-				</li>
-				<li class="nav-item" id="">
-					<a class="nav-link" href="#">Services</a>
-				</li>
-				<li class="nav-item" id="contact">
-					<a class="nav-link" href="${contextRoot}/contactUs">Contact Us</a>
-				</li>
+				<li class="nav-item" id="home"><a class="nav-link"
+					href="${contextRoot}/home">Home</a></li>
+				<li class="nav-item" id="listAll"><a class="nav-link"
+					href="${contextRoot}/show/allProducts">All Products</a></li>
+				<li class="nav-item" id="about"><a class="nav-link"
+					href="${contextRoot}/aboutUs">About Us</a></li>
+				<li class="nav-item" id="contact"><a class="nav-link"
+					href="${contextRoot}/contactUs">Contact Us</a></li>
 			</ul>
 		</div>
 	</div>

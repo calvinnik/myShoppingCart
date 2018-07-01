@@ -60,6 +60,11 @@ footer{
 .content{
 	padding-bottom: 60px;
 }
+
+.breadcrumb{
+	margin-top: 15px;
+}
+
 </style>
 </head>
 
@@ -85,6 +90,11 @@ footer{
 			<!-- Inclusion of the ContactUs -->
 			<c:if test="${contactTrue == true}">
 				<%@include file="./contactUs.jsp"%>
+			</c:if>
+			
+			<!-- Inclusion of the View all Products and Category Products -->
+			<c:if test="${showAllTrue == true or showCategoryTrue == true}">
+				<%@include file="./productList.jsp"%>
 			</c:if>
 
 		</div>
@@ -114,6 +124,13 @@ footer{
 			case 'Home':
 				$('#home').addClass('active');
 				break;
+				
+			case 'All Products':
+				$('#listAll').addClass('active');
+				break;
+				
+			default:
+				$('#cat_'+page).addClass('active');
 			}
 		});
 	</script>

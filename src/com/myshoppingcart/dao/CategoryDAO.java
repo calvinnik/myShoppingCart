@@ -7,5 +7,6 @@ import com.myshoppingcart.entity.Category;
 public interface CategoryDAO {
 
 	public List<Category> getCatogoryList();
-	
+	public Category getCatogory(int id);
+
 }

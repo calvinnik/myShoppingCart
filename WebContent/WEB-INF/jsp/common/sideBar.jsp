@@ -5,6 +5,6 @@
 <div class="list-group">
 
 	<c:forEach items="${categories}" var="categories">
-		<a href="#" class="list-group-item">${categories.name}</a>
+		<a href="${contextRoot}/show/product/${categories.id}" class="list-group-item" id="cat_${categories.name}">${categories.name}</a>
 	</c:forEach>
 </div>
