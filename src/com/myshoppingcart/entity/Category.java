@@ -1,14 +1,33 @@
 package com.myshoppingcart.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Category {
 
 	/*
 	 * Defining the private fields for CATOGORY
 	 * */
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
+	
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="description")
 	private String description;
+	
+	@Column(name="img_url")
 	private String imgURL;
+	
+	@Column(name="is_active")
 	private Boolean isActive = true;
 	
 	

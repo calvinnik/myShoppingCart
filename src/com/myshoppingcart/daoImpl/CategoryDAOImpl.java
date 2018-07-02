@@ -1,66 +1,87 @@
 package com.myshoppingcart.daoImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myshoppingcart.dao.CategoryDAO;
 import com.myshoppingcart.entity.Category;
 
 @Repository("categoryDAO")
+@Transactional
 public class CategoryDAOImpl implements CategoryDAO {
 
 	/*
-	 * Defining a Static List for categories. this is just for test purpose.
+	 * Defining SessionFactory object and using Autowired to create bean
 	 */
-
-	private static List<Category> catList = new ArrayList<>();
-
-	static {
-		Category category = new Category();
-
-		// First Category
-		category.setId(1);
-		category.setName("Mobile");
-		category.setDescription("This category has differnt Mobiles.");
-		category.setImgURL("CAT_1");
-
-		catList.add(category);
-
-		// First Category
-		category = new Category();
-		category.setId(2);
-		category.setName("Books");
-		category.setDescription("This category has differnt Books.");
-		category.setImgURL("CAT_2");
-
-		catList.add(category);
-
-		// Third Category
-		category = new Category();
-		category.setId(3);
-		category.setName("Laptops");
-		category.setDescription("This category has differnt laptops.");
-		category.setImgURL("CAT_3");
-
-		catList.add(category);
-
-	}
-
+	@Autowired
+	@Qualifier("sessionFactory")
+	private SessionFactory sessionFactory;
+	
+	
 	@Override
 	public List<Category> getCatogoryList() {
-		return catList;
+		String hQuery = "FROM Category WHERE isActive = :active";
+		Query<Category> theQ = sessionFactory.getCurrentSession().createQuery(hQuery, Category.class);
+		theQ.setParameter("active", true);
+		
+		return theQ.getResultList();
 	}
 
 	@Override
 	public Category getCatogory(int id) {
-		for(Category c:catList) {
-			if(c.getId()==id) {
-				return c;
-			}
+		return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
+	}
+
+	@Override
+	public Boolean addCategory(Category cat) {
+		try {
+		sessionFactory.getCurrentSession().save(cat);
+		return true;
 		}
-		return null;
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/*
+	 * Updating a Single Category
+	 * */
+	@Override
+	public Boolean updateCategory(Category cat) {
+		try {
+			sessionFactory.getCurrentSession().update(cat);
+			return true;
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+	}
+	
+	/*
+	 * Deleting will be soft delete.
+	 * that means that the isActive field will be set to false.
+	 * */
+
+	@Override
+	public Boolean deleteCategory(Category cat) {
+		
+		cat.setIsActive(false);
+		try {
+			sessionFactory.getCurrentSession().update(cat);
+			return true;
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
 	}
 
 }
